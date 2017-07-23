@@ -53,14 +53,20 @@ public class Main {
         final String versionWithMajorMinor = version.substring(0, nextPos);
 
         /*
-            We are interested in the major version, and the first value of
-            the minor version. This is converted to an int.
+            Split the version into major and minor
+         */
+        final String[] versionSplit = versionWithMajorMinor.split("\\.");
 
-            What does this mean for Java 1.10? As an int that is the same as
-            Java 1.1. I guess we'll cross that bridge in a couple of years...
+        /*
+            Treat each part of the version as an individual number. We multiply
+            each by 10, pad each to 3 places, and recombine them to give a single
+            integer. So 1.9 becomes 10090. This allows us to deal with situations
+            like testing version 1.1 and 1.10.
          */
         try {
-            return (int) (Double.parseDouble(versionWithMajorMinor) * 10);
+            final String formattedVersion = "" + (Integer.parseInt(versionSplit[0]) * 10) +
+                    String.format("%3s", Integer.parseInt(versionSplit[1]) * 10).replaceAll(" ", "0");
+            return Integer.parseInt(formattedVersion);
         } catch (final NumberFormatException ex) {
             /*
                 We didn't find the expected version number.

@@ -11,6 +11,6 @@ public class MainTest {
     public void testReturnCode() {
         final Main main = new Main();
         final int version = main.getVersion();
-        Assert.assertTrue(version >= 15);
+        Assert.assertTrue(version >= 10050);
     }
 }
