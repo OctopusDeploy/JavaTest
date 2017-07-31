@@ -9,8 +9,7 @@ import org.junit.Test;
 public class MainTest {
     @Test
     public void testReturnCode() {
-        final Main main = new Main();
-        final int version = main.getVersion();
+        final int version = Main.getVersion(System.getProperty("java.version"));
         Assert.assertTrue(version >= 10050);
     }
 }
