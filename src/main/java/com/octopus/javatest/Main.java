@@ -5,7 +5,7 @@ package com.octopus.javatest;
  * a minimum version
  */
 public class Main {
-    private static final int ERROR_EXIT_CODE = -1;
+    private static final int ERROR_EXIT_CODE = 1;
     private static final int SUCCESS_EXIT_CODE = 0;
 
     public static void main(final String[] args) {
@@ -49,14 +49,9 @@ public class Main {
         final int nextPos = version.indexOf('.', pos + 1);
 
         /*
-            We expect the version number to have two decimal places.
-            If not, this is a problem.
+            If nextPos == -1, we assume the input is major.minor i.e. 1.6
          */
-        if (nextPos == -1) {
-            throw new IllegalArgumentException();
-        }
-
-        final String versionWithMajorMinor = version.substring(0, nextPos);
+        final String versionWithMajorMinor = version.substring(0, nextPos == -1 ? version.length() : nextPos);
 
         /*
             Split the version into major and minor
