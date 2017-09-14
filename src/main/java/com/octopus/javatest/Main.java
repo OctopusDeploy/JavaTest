@@ -7,6 +7,8 @@ package com.octopus.javatest;
 public class Main {
     private static final int ERROR_EXIT_CODE = 1;
     private static final int SUCCESS_EXIT_CODE = 0;
+    private static final int MULTIPLIER = 10;
+    private static final int PADDING = 3;
 
     public static void main(final String[] args) {
         try {
@@ -39,11 +41,11 @@ public class Main {
         final int pos = version.indexOf('.');
 
         /*
-            We expect the version number to have decimal places.
-            If not, this is a problem.
+            Prior to Java 9, we expect to find versions like "1.8.0".
+            With Java 9 we can have values like "9" with JEP 223
          */
         if (pos == -1) {
-            throw new IllegalArgumentException();
+            return Integer.parseInt(version) * MULTIPLIER * (int) Math.pow(10, PADDING);
         }
 
         final int nextPos = version.indexOf('.', pos + 1);
@@ -65,8 +67,8 @@ public class Main {
             like testing version 1.1 and 1.10.
          */
         try {
-            final String formattedVersion = "" + (Integer.parseInt(versionSplit[0]) * 10) +
-                    String.format("%3s", Integer.parseInt(versionSplit[1]) * 10).replaceAll(" ", "0");
+            final String formattedVersion = "" + (Integer.parseInt(versionSplit[0]) * MULTIPLIER) +
+                    String.format("%" + PADDING + "s", Integer.parseInt(versionSplit[1]) * MULTIPLIER).replaceAll(" ", "0");
 
             return Integer.parseInt(formattedVersion);
         } catch (final NumberFormatException ex) {
