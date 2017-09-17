@@ -38,14 +38,16 @@ public class Main {
             throw new IllegalArgumentException();
         }
 
-        final int pos = version.indexOf('.');
+        final String versionWithoutOpt = version.split("[^0-9.]")[0];
+
+        final int pos = versionWithoutOpt.indexOf('.');
 
         /*
             Prior to Java 9, we expect to find versions like "1.8.0".
             With Java 9 we can have values like "9" with JEP 223
          */
         if (pos == -1) {
-            return Integer.parseInt(version) * MULTIPLIER * (int) Math.pow(10, PADDING);
+            return Integer.parseInt(versionWithoutOpt) * MULTIPLIER * (int) Math.pow(10, PADDING);
         }
 
         final int nextPos = version.indexOf('.', pos + 1);
@@ -53,7 +55,7 @@ public class Main {
         /*
             If nextPos == -1, we assume the input is major.minor i.e. 1.6
          */
-        final String versionWithMajorMinor = version.substring(0, nextPos == -1 ? version.length() : nextPos);
+        final String versionWithMajorMinor = versionWithoutOpt.substring(0, nextPos == -1 ? versionWithoutOpt.length() : nextPos);
 
         /*
             Split the version into major and minor
