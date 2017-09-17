@@ -32,6 +32,12 @@ public class MainTest {
     }
 
     @Test
+    public void testVersionJava90Internal() {
+        final int version = Main.getVersion("9.0-internal");
+        Assert.assertTrue(version == 90000);
+    }
+
+    @Test
     public void testVersionJava90() {
         final int version = Main.getVersion("9.0");
         Assert.assertTrue(version == 90000);

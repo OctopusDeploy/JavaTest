@@ -50,7 +50,7 @@ public class Main {
             return Integer.parseInt(versionWithoutOpt) * MULTIPLIER * (int) Math.pow(10, PADDING);
         }
 
-        final int nextPos = version.indexOf('.', pos + 1);
+        final int nextPos = versionWithoutOpt.indexOf('.', pos + 1);
 
         /*
             If nextPos == -1, we assume the input is major.minor i.e. 1.6
