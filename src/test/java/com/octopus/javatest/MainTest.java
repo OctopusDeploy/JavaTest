@@ -60,4 +60,10 @@ public class MainTest {
         final int version = Main.getVersion("10");
         Assert.assertTrue(version == 100000);
     }
+
+    @Test
+    public void testVersionJava1001() {
+        final int version = Main.getVersion("10.0.1");
+        Assert.assertTrue(version == 100000);
+    }
 }
